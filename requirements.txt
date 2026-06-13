@@ -1,43 +1,29 @@
 streamlit
 python-dotenv
 
-# Audio Processing
-
-pydub
 yt-dlp
 ffmpeg-python
-
-# Whisper
 
 openai-whisper
 torch
 torchaudio
-
-# LangChain
 
 langchain
 langchain-core
 langchain-community
 langchain-text-splitters
 
-# Mistral
-
 langchain-mistralai
 
-# Vector DB
-
-langchain-chroma
-chromadb
-
-# Embeddings
+langchain-chroma==0.2.5
+chromadb==1.0.15
 
 sentence-transformers
 transformers
 huggingface-hub
 
-# Utilities
+protobuf==3.20.3
 
 requests
 numpy
 tqdm
-
