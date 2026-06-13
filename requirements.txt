@@ -1,7 +1,7 @@
 streamlit
 python-dotenv
 
-yt-dlp
+yt-dlp>=2025.06.30
 ffmpeg-python
 
 openai-whisper
