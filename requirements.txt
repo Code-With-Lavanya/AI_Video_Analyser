@@ -1,46 +1,43 @@
 streamlit
+python-dotenv
+
+# Audio Processing
+
+pydub
+yt-dlp
+ffmpeg-python
+
+# Whisper
+
+openai-whisper
+torch
+torchaudio
+
+# LangChain
 
 langchain
 langchain-core
 langchain-community
 langchain-text-splitters
 
-langchain-ollama
-ollama
+# Mistral
 
 langchain-mistralai
-faiss-cpu
+
+# Vector DB
+
+langchain-chroma
+chromadb
+
+# Embeddings
 
 sentence-transformers
+transformers
 huggingface-hub
-langchain-chroma
-faster-whisper
 
-yt-dlp
-
-moviepy
-
-pydub
-
-python-dotenv
-
-tiktoken
-
-pypdf
-
-unstructured
-
-numpy
-pandas
+# Utilities
 
 requests
-
-ffmpeg-python
-
+numpy
 tqdm
 
-protobuf
-
-torch
-torchaudio
-torchvision
