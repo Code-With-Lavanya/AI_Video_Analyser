@@ -55,5 +55,41 @@ def generate_title(transcipt : str) -> str:
 
     return title_chain.invoke(transcipt[:2000])
 
+def generate_meeting_report(transcript: str) -> str:
 
+    prompt = ChatPromptTemplate.from_messages([
+        (
+            "system",
+            """
+You are an expert meeting analyst.
+
+Return the output in EXACTLY this format:
+
+TITLE:
+<meeting title>
+
+SUMMARY:
+<bullet point summary>
+
+ACTION ITEMS:
+<numbered list>
+
+KEY DECISIONS:
+<numbered list>
+
+OPEN QUESTIONS:
+<numbered list>
+
+If any section is empty, write:
+None found
+"""
+        ),
+        ("human", "{text}")
+    ])
+
+    chain = prompt | get_llm() | StrOutputParser()
+
+    return chain.invoke({
+        "text": transcript[:12000]
+    })
 
