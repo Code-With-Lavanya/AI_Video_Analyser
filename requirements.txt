@@ -16,8 +16,8 @@ langchain-text-splitters
 
 langchain-mistralai
 
-chromadb==0.5.5
-langchain-chroma==0.1.4
+chromadb
+langchain-chroma
 
 sentence-transformers
 transformers
