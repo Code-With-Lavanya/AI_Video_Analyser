@@ -16,26 +16,12 @@ def run_pipeline(source :str, language :str = "english") -> dict:
     transcript = transcribe_all(chunks,language)
     print(f"raw transcription (first 300 characters ) {transcript[:300]}")
 
-    title = generate_title(transcript)
-
-    summary = summarize(transcript)
-
-    action_item = extract_action_items(transcript)
-
-    decisions = extract_key_decisions(transcript)
-    questions = extract_questions(transcript)
-    
-    rag_chain = build_rag_chain(transcript)
-
+    report = generate_meeting_report(transcript)
     return {
-        "title": title,
-        "transcript": transcript,
-        "summary": summary,
-        "action_items": action_item,
-        "key_decisions": decisions,
-        "open_questions": questions,
-        "rag_chain": rag_chain,
-    }
+    "transcript": transcript,
+    "report": report,
+    "rag_chain": rag_chain,
+}
 
 if __name__ == "__main__":
     # CLI entry point
