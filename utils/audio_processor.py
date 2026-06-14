@@ -66,7 +66,7 @@ def get_audio_duration(wav_path):
     return float(result.stdout.strip())
 
 
-def chunk_audio(wav_path: str, chunk_minutes: int = 5):
+def chunk_audio(wav_path: str, chunk_minutes: int = 10):
 
     duration = get_audio_duration(wav_path)
 
