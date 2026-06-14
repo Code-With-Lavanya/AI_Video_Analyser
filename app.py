@@ -361,6 +361,48 @@ html, body, [class*="css"] {
     color: var(--muted) !important;
     font-size: 0.88rem !important;
 }
+
+/* ─── Suggested question pills ──────────────────────────────── */
+.sq-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.55rem;
+}
+.sq-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.sq-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(108,99,255,0.08);
+    border: 1px solid rgba(108,99,255,0.22);
+    color: #c4bfff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.38rem 0.85rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
+    white-space: nowrap;
+    user-select: none;
+}
+.sq-pill:hover {
+    background: rgba(108,99,255,0.18);
+    border-color: rgba(108,99,255,0.5);
+    color: #fff;
+    transform: translateY(-1px);
+}
+.sq-pill:active {
+    transform: translateY(0);
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -369,6 +411,9 @@ html, body, [class*="css"] {
 for key in ["results", "rag_chain", "chat_history", "processing"]:
     if key not in st.session_state:
         st.session_state[key] = None if key != "chat_history" else []
+
+if "suggested_question" not in st.session_state:
+    st.session_state.suggested_question = ""
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -620,6 +665,23 @@ if st.session_state.rag_chain is not None:
             </div>
             """, unsafe_allow_html=True)
 
+    # ── Suggested questions ───────────────────────────────────────────
+    SUGGESTED = [
+        ("🔍", "What is the main topic?"),
+        ("📋", "Summarize the video"),
+        ("✅", "What action items were discussed?"),
+        ("🔑", "What decisions were made?"),
+    ]
+
+    st.markdown('<div class="sq-label">✦ Try a suggested question</div>', unsafe_allow_html=True)
+
+    sq_cols = st.columns(len(SUGGESTED), gap="small")
+    for idx, (icon, label) in enumerate(SUGGESTED):
+        with sq_cols[idx]:
+            if st.button(f"{icon} {label}", key=f"sq_{idx}", use_container_width=True):
+                st.session_state.suggested_question = label
+                st.rerun()
+
     # ── Input row ─────────────────────────────────────────────────────
     q_col, btn_col = st.columns([5, 1], gap="small")
     with q_col:
@@ -628,9 +690,14 @@ if st.session_state.rag_chain is not None:
             placeholder="Ask something about the transcript…",
             label_visibility="collapsed",
             key="chat_input",
+            value=st.session_state.suggested_question,
         )
     with btn_col:
         send = st.button("Send ➤", use_container_width=True)
+
+    # Clear the prefill after it's been placed in the input
+    if st.session_state.suggested_question and not send:
+        st.session_state.suggested_question = ""
 
     if send and question.strip():
         from core.rag_engine import ask_question
