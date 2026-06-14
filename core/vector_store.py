@@ -16,10 +16,6 @@ def get_embeddings():
 
 def build_vector_store(transcript : str)->Chroma:
     # If a persisted vector DB already exists, load and return it instead
-    if os.path.exists(CHROMA_DIR) and any(os.scandir(CHROMA_DIR)):
-        print("Persisted vector DB found — loading instead of rebuilding")
-        return load_vector_store()
-
     print("Building vector Store")
 
     splitter = RecursiveCharacterTextSplitter(
