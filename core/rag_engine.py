@@ -56,7 +56,7 @@ Context from meeting transcript:
 
 
 def load_rag_chain():
-    vector_store = load_vector_store()
+    vector_store = build_vector_store(transcript)
     retriver = get_retriever()
 
     llm = get_llm()
