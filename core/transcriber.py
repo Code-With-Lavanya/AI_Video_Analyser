@@ -1,4 +1,4 @@
-import whisper
+from faster_whisper import WhisperModel
 import os
 import requests
 import subprocess
@@ -8,7 +8,10 @@ import subprocess
 SARVAM_PIECE_SECONDS = 25
 
 
-WHISPER_MODEL = os.getenv("WHISPER_MODEL", "small")
+WHISPER_MODEL =  WhisperModel(
+    "small",
+    compute_type="int8"
+)
 
 
 SARVAM_API_KEY = os.getenv("SARVAM_API_KEY")
