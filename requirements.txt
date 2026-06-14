@@ -4,7 +4,7 @@ python-dotenv
 yt-dlp>=2025.06.30
 ffmpeg-python
 
-openai-whisper
+faster-whisper>=1.1.0
 torch
 torchaudio
 
