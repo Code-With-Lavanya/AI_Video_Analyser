@@ -17,28 +17,18 @@ WHISPER_MODEL =  WhisperModel(
 SARVAM_API_KEY = os.getenv("SARVAM_API_KEY")
 SARVAM_STT_TRANSLATE_URL = "https://api.sarvam.ai/speech-to-text-translate"
 SARVAM_MODEL = os.getenv("SARVAM_STT_MODEL", "saaras:v2.5")
-
-_model = None
-
-
-def load_model():
-
-    global _model  
-
-    if _model is None: 
-        print(f"Loading Whisper model: {WHISPER_MODEL} ...")
-        _model = whisper.load_model(WHISPER_MODEL) 
-        print("Whisper model loaded.")
-    return _model 
-
-
 def transcribe_chunk_whisper(chunk_path: str) -> str:
 
-    model = load_model()  
+    segments, info = WHISPER_MODEL.transcribe(
+        chunk_path,
+        beam_size=5
+    )
 
-    result = model.transcribe(chunk_path, task="transcribe")  
-    return result["text"]  
+    text = " ".join(
+        segment.text for segment in segments
+    )
 
+    return text
 
 def _send_to_sarvam(piece_path: str) -> str:
     """Send one ≤30s WAV file to Sarvam and return the English transcript."""
