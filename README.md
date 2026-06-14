@@ -253,6 +253,6 @@ streamlit run app.py
 
 ## 👨‍💻 Author
 
-**Lucky**
+**Lavanya Singh**
 
 Built to simplify long-form content analysis using Generative AI, RAG, and Speech Intelligence.
